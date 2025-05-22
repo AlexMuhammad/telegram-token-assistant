@@ -5,6 +5,9 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { getRecentLogs } from "../db";
 import { CRYPTO_PROMPT } from "../api/prompt";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface SafetyScore {
   score: number;
