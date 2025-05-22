@@ -213,6 +213,8 @@ export async function handleTextMessage(ctx: Context): Promise<void> {
 
     let reply = "";
 
+    console.log("queryType", queryType);
+
     switch (queryType) {
       case "address":
         reply = await handleAddressQuery(input, tokenInput, chatId);

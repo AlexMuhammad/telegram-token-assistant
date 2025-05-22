@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import { Bot } from "grammy";
 import Fastify from "fastify";
 import cors from "@fastify/cors";
@@ -8,6 +9,8 @@ import {
   handleTextMessage,
 } from "./handlers";
 import { getLogList } from "../db";
+
+dotenv.config();
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN!);
 const prisma = new PrismaClient();
@@ -41,8 +44,11 @@ fastify.setErrorHandler((error, request, reply) => {
 
 export const start = async () => {
   try {
-    await fastify.listen({ port: 3000, host: "0.0.0.0" });
-    fastify.log.info(`Server listening on 3000`);
+    await fastify.listen({
+      port: Number(process.env?.PORT!) || 3000,
+      host: "0.0.0.0",
+    });
+    fastify.log.info(`Server listening on ${Number(process.env?.PORT!)}`);
     await bot.start();
   } catch (err) {
     fastify.log.error(err);
